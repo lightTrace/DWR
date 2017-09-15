@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<servlet>
+		<!-- 指定DWR核心Servlet的名字 -->
+		<servlet-name>dwr</servlet-name>
+		<servlet-class>
+			<!-- 指定DWR核心Servlet的实现类 -->
+			org.directwebremoting.servlet.DwrServlet
+		</servlet-class>
+		<!-- 指定DWR核心Servlet处于调试状态 -->
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<!-- 设置使用反向Ajax技术 -->
+		<init-param>
+			<param-name>activeReverseAjaxEnabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>initApplicationScopeCreatorsAtStartup</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<!--长连接只保持时间 -->
+			<param-name>maxWaitAfterWrite</param-name>
+			<param-value>60</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+<!-- 下面是我在后文将要提到的一个servlet的设置，注意根据自己程序设置servlet-class和servlet-name区域的值 -->  
+    <servlet>  
+        <servlet-name>MySevlet</servlet-name>  
+        <servlet-class>com.test.DWRServlet</servlet-class>  
+    </servlet>  
+<!-- 下面是我在后文将要提到的一个servlet的设置，注意根据自己程序设置url-pattern区域的值 -->      
+    <servlet-mapping>  
+        <servlet-name>MySevlet</servlet-name>  
+        <url-pattern>/server/push</url-pattern>  
+    </servlet-mapping> 
+	
+	<!-- 指定核心Servlet的URL映射 -->
+	<servlet-mapping>
+		<servlet-name>dwr</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
